@@ -4,6 +4,13 @@ import {Link} from 'react-router-dom';
 import './Survey.css';
 
 class Survey extends Component {
+  testFetch() {
+    fetch(`/user`, {
+      method: 'GET',
+      accept: 'application/json',
+    }).then( response => response.json())
+    .then(data => console.log(data));
+  }
   render() {
     return (
       <div className='survey-page'>
@@ -13,9 +20,11 @@ class Survey extends Component {
           <RefreshButton onClick={ () => this.refreshPage()}/>
           <iframe className='survey' src='https://www.surveymonkey.com/r/YDM5DWK'/>
         </div>
+        <button onClick={ () => this.testFetch()}></button>
       </div>
     );
   }
 }
 
 export default Survey;
+ 
