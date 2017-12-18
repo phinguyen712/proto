@@ -5,8 +5,12 @@ bodyParser              =   require('body-parser'),
 // auth                 =   require('./server/auth'),
 methodOverride          =   require('method-override'),
 http 					= 	require('http'),
-api						=   require('./server/index.js');
-currentApp              =   app
+mongoose                =   require('mongoose'),
+api						=   require('./server/api/index.js'),
+Account                 =   require('./server/models/accounts.js'),
+passport                =   require("passport"),
+LocalStrategy           =   require("passport-local"),
+currentApp              =   app;
 
 
 
@@ -25,7 +29,20 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.set('view engine','ejs' );
 
 //settings for passport authorizations, sessions, and hash
-// auth(app);
+//initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+//decode and endcode sessions for Authorization
+passport.use(new LocalStrategy(Account.authenticate()));
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
+
+
+//mongolab connection * MAKE SURE TO DELETET HIS IN PRODUCTION
+const url = process.env.HospitalDBURL;
+mongoose.connect('mongodb://adminaccount:survey123@ds161016.mlab.com:61016/survey');
+
 
 //all of the routes aka API
 api(app);
