@@ -2,7 +2,6 @@
 const express           =   require('express'),
 app						=	express(),
 bodyParser              =   require('body-parser'),
-// auth                 =   require('./server/auth'),
 methodOverride          =   require('method-override'),
 http 					= 	require('http'),
 mongoose                =   require('mongoose'),
@@ -14,13 +13,15 @@ currentApp              =   app;
 
 
 
-// app.use(require('express-session')(
-//         {
-//             secret: 'secret app',
-//             resave: false,
-//             saveUninitialized: false
-//         }
-// ));
+app.use(
+    require('express-session')(
+        {
+            secret: 'secret app',
+            resave: false,
+            saveUninitialized: false
+        }
+    )
+);
 
 app.use(methodOverride('_method'));
 

@@ -1,12 +1,13 @@
 const middlewareObj={};
 
 middlewareObj.isLoggedIn = function(req,res,next){
-    if(req.isAuthenticated()){
-        return next();
+    if(req.sessionID){
+        next()
     }else{
-        req.flash("error","Please log in first!");
+        console.log('unauthenticated');
         res.redirect("/");
     }
 };
 
 module.exports = middlewareObj;
+''

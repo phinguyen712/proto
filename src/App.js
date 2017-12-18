@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import Header from './components/Header.js';
 import './App.css';
 import Routes from './routes.js';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap-theme.css';
 
 class App extends Component {
   render() {

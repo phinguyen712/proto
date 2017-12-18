@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+
 const guidelinesSchema = new mongoose.Schema({
         name: String,
         description: String,

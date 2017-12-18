@@ -2,7 +2,7 @@ const User = require('../models/accounts.js');
 passport = require('passport');
 
 module.exports = (app) => {
-    app.post("/account/signup", function(req,res){
+    app.post('/account/signup', function(req,res){
         User.register(new User({username: req.body.username}), req.body.password, (err,user) =>{
             if(err){
                 res.json({err:err.message})
@@ -14,25 +14,26 @@ module.exports = (app) => {
         });
     });
 
-    app.post('accounts/login', function(req, res, next) {
+    app.post('/account/login', function(req, res, next) {
         passport.authenticate('local', function(err, user, info) {
             if (err) {
-                return next(err);
+                console.log(err);
             }
             if (!user) {
                 return res.json({username:false});
             }
+
             req.logIn(user, function(err) {
                 if (err) {
-                    return next(err);
+                    return console.log(err);
                 }
                 return res.json(req.user);
             });
-        })(req, res, next);
+        })(req, res, next)
     });
 
-    app.get("accounts/logout",function(req,res){
-        req.logout();
-        res.redirect("/");
-    });
+    // app.get("/account/logout",function(req,res){
+    //     req.logout();
+    //     res.redirect("/");
+    // });
 };
