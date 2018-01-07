@@ -1,5 +1,5 @@
-import currentViewReducer from './currentViewReducer';
+import accountsReducer from './accountsReducer'
 
 export {
-  currentviewReducer,
+  accountsReducer
 };

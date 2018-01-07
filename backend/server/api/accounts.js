@@ -13,8 +13,9 @@ module.exports = (app) => {
             }
         });
     });
-
+    // will need req.body.username and req.body.password authenticated.
     app.post('/account/login', function(req, res, next) {
+        console.log('test')
         passport.authenticate('local', function(err, user, info) {
             if (err) {
                 console.log(err);
@@ -32,8 +33,8 @@ module.exports = (app) => {
         })(req, res, next)
     });
 
-    // app.get("/account/logout",function(req,res){
-    //     req.logout();
-    //     res.redirect("/");
-    // });
+    app.get("/account/logout",function(req,res){
+        req.logout();
+        res.redirect("/");
+    });
 };

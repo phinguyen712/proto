@@ -1,6 +1,6 @@
-// import {
-//   currentviewReducer
-// } from './reducers';
+import {
+  accountReducer
+} from './reducers';
 
 import * as redux from 'redux';
 

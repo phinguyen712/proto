@@ -1,11 +1,11 @@
 import React from 'react';
 import { Switch, Route } from 'react-router';
 import App from './App';
-import Home from './components/home/Home';
+import Home from './components/page/home/Home.js';
 import NotFound from './components/NotFound';
 import { BrowserRouter } from 'react-router';
-import Resources from './components/Resources.js';
-import ManageUsers from './components/ManageUsers.js';
+import Resources from './components/page/resources/Resources.js';
+import ManageUsers from './components/page/manageUsers/ManageUsers.js';
 
 const Routes = props => (  
   <Switch>
