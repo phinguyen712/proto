@@ -10,7 +10,7 @@ class Survey extends Component {
         <div className='survey-container'>
           <h2>Lorum Ipsum</h2>
           <h3>In venenatis pellentesque felis vitae varius</h3>
-          <RefreshButton onClick={ () => this.refreshPage()}/>
+            <RefreshButton onClick={ () => this.refreshPage()}/>
           <iframe className='survey' src='https://www.surveymonkey.com/r/YDM5DWK'/>
         </div>
       </div>

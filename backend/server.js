@@ -2,32 +2,25 @@
 const express           =   require('express'),
 app						=	express(),
 bodyParser              =   require('body-parser'),
-methodOverride          =   require('method-override'),
 http 					= 	require('http'),
 mongoose                =   require('mongoose'),
 api						=   require('./server/api/index.js'),
 Account                 =   require('./server/models/accounts.js'),
 passport                =   require("passport"),
-LocalStrategy           =   require("passport-local"),
-currentApp              =   app;
+flash                   =   require("connect-flash"),
+LocalStrategy           =   require("passport-local");
 
+app.use(require("express-session")({
+    secret: "Journey code",
+    resave: false,
+    saveUninitialized: false
+}));
 
+app.use(express.static("public"));
 
-app.use(
-    require('express-session')(
-        {
-            secret: 'secret app',
-            resave: false,
-            saveUninitialized: false
-        }
-    )
-);
-
-app.use(methodOverride('_method'));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.set('view engine','ejs' );
 
 //settings for passport authorizations, sessions, and hash
 //initialize passport
@@ -38,7 +31,6 @@ app.use(passport.session());
 passport.use(new LocalStrategy(Account.authenticate()));
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
-
 
 //mongolab connection * MAKE SURE TO DELETET HIS IN PRODUCTION
 const url = process.env.HospitalDBURL;

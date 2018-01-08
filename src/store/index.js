@@ -1,8 +1,10 @@
 import {
-  accountReducer
+  accountsReducer,
+  currentViewReducer
 } from './reducers';
 
 import * as redux from 'redux';
+
 
 //configuration for our store object
 let store;
@@ -10,6 +12,8 @@ let store;
 export default {
   configureStore (initialState = {}) {
     const reducer = redux.combineReducers({
+        account: accountsReducer,
+        currentView: currentViewReducer
     });
 
     store = redux.createStore(reducer, initialState, redux.compose(

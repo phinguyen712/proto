@@ -1,8 +1,11 @@
 import React from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import './PageLoginForm.scss'
+import './PageLoginForm.scss';
+import {connect} from 'react-redux';
+import actions from '../../store/actions.js';
+import axios from 'axios';
 
-export default class PageLoginForm extends React.Component {
+class PageLoginForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,26 +25,27 @@ export default class PageLoginForm extends React.Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    fetch('account/login', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
+    axios.post('account/login', {
         username: this.state.login, 
         password: this.state.password,
+     })
+     .then((response) => {
+          if(response.status === 200) {
+            this.props.dispatch(actions.updateUserObject(response.data));
+          } else {
+            throw(response)
+          }
       })
-    }).then( response => response.json())
-    .then(data => console.log(data));
-    
+      .catch((err) => {
+        console.log(err)
+      });
   }
-  render() {
+  renderLoginForm(){
     return (
       <Form onSubmit={this.handleSubmit}>
         <FormGroup>
           <Label for="exampleEmail">Email</Label>
-          <Input name="email" id="exampleEmail" 
+          <Input xname="email" id="exampleEmail" 
             placeholder="login" value={this.state.login} onChange={this.handleLoginChange} />
         </FormGroup>
         <FormGroup>
@@ -53,4 +57,28 @@ export default class PageLoginForm extends React.Component {
       </Form>
     );
   }
+  renderLogOutButton() {
+    return ( 
+      <div>
+        <h1>You are logged in</h1>
+      </div>
+    )
+  }
+  
+  render() {
+    if(!this.props.account.username){ 
+      return this.renderLoginForm();
+    } else {
+      return this.renderLogOutButton();
+    }
+  }
 }
+
+
+export default connect(
+  (state) => {
+    return {
+      account: state.account
+    };
+  }
+)(PageLoginForm);

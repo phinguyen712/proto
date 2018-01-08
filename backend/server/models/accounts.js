@@ -1,9 +1,8 @@
 const mongoose = require('mongoose'),
         passportLocalMongoose = require("passport-local-mongoose");
 
-const accountsSchema= new mongoose.Schema({
+const accountsSchema = new mongoose.Schema({
         username: String,
-        password: String,
         type: String,
         guidelines:[{ type: mongoose.Schema.Types.ObjectId,
                 ref: "Guideline"

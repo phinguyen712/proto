@@ -1,6 +1,14 @@
-export var logIn = (userData) => {
+export default {
+  updateUserObject(userData){
     return {
-      type: 'Log In',
+      type: 'UPDATE_USER_OBJECT',
       userData
     };
+  },
+  updateCurrentView(updatedViewState){
+    return {
+      type: 'UPDATE_CURRENT_VIEW',
+      updatedViewState
+    };
+  }
 };

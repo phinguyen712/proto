@@ -1,8 +1,8 @@
 const userData = {};
 
-export const accountsReducer = (state = userData, action) => {
+export default (state = userData, action) => {
     switch (action.type) {
-      case 'LOGIN_USER':
+      case 'UPDATE_USER_OBJECT':
         return action.userData;
       default:
         return state;

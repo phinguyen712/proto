@@ -9,7 +9,7 @@ import ManageUsers from './components/page/manageUsers/ManageUsers.js';
 
 const Routes = props => (  
   <Switch>
-    <Route exact path='/' component={Home}/>
+    <Route exact path='/' component={Home} on/>
     <Route exact path='/Resources' component={Resources}/>
     <Route exact path='/ManageUsers' component={ManageUsers}/>
     {/* 404 Route */}
