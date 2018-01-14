@@ -54,7 +54,8 @@
     "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive"
   },
   "devDependencies": {
-    "concurrently": "^3.5.1"
+    "concurrently": "^3.5.1",
+    "riek": "^1.1.0"
   },
   "engines": {
     "node": ">=8.9.0 <=8.9.2",

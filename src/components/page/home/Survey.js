@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import RefreshButton from '../../buttons/RefreshButton.js';
+import RefreshButton from '../../buttons/PrimaryButton.js';
 import {Link} from 'react-router-dom';
 import './Survey.css';
 

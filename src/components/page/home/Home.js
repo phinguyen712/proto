@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Survey from './Survey.js'
-import GuidelinesList from './GuidelinesList';
+import GuidelinesList from '../../lists/GuidelinesList';
 import GuidelinesEditor from './GuidelinesEditor'
 import './Home.css';
 import { connect } from 'react-redux';
@@ -13,7 +13,7 @@ class Home extends Component {
         const {currentView} = this.props;
         if (currentView === 'showGuidelinesList') {
             return (
-                <div>
+                <div className="guidelinesList">
                     <GuidelinesList/>
                 </div>
             );
@@ -31,14 +31,6 @@ class Home extends Component {
             )
         } else {
             return <div></div>
-        }
-    }
-    componentWillMount(){
-        const { dispatch ,account } = this.props;
-        if (account.type === 'admin') {
-            dispatch(actions.updateCurrentView({homePage:'showGuidelinesList'}));
-        } else {
-            dispatch(actions.updateCurrentView({homePage:'showSurvey'}));
         }
     }
     render() {

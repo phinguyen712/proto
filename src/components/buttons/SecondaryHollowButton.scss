@@ -1,0 +1,13 @@
+@import 'styles/variables.scss';
+
+.modify-button {
+    margin-right: 20px;
+    border-radius: $prim-btn-radius;
+    height: $prim-btn-height;
+    width: $prim-btn-width;
+    background-color: $background-gray;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 1em;
+    border-color: $prim-gray;
+}

@@ -1,5 +1,5 @@
 const initialView = {
-    homePage:'',
+    homePage:'showGuidelinesList',
     other: 'page'
 };
 
