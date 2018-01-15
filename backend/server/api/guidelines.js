@@ -1,6 +1,4 @@
-const User = require('../models/accounts.js');
-    passport = require('passport'),
-    isLoggedIn = require('../helpers/middlewareObj.js').isLoggedIn
+const isLoggedIn = require('../helpers/middlewareObj.js').isLoggedIn,
     Guidelines = require('../models/guidelines.js');
 
 module.exports = (app) => {
@@ -9,7 +7,7 @@ module.exports = (app) => {
             if(err){
                 res.status(400).send();
             }else{
-                res.json(guidelines);
+                res.status(200).json(guidelines);
             }   
         });
     });
@@ -29,16 +27,31 @@ module.exports = (app) => {
     });
     app.put('/guidelines/edit' , (req,res) => {
         const newGuidelines = {
-            id: req.body._id,
+            _id: req.body._id,
             name: req.body.name,
             description: req.body.description,
             link: req.body.link
         }
-        Guidelines.findById(newGuidelines, (err, createdGuidelines) => {
+        Guidelines.findById(newGuidelines._id, (err, foundGuidelines) => {
             if (err) {
                 console.log(err);
             } else {
-                res.status(200).json(createdGuidelines);
+                foundGuidelines.name = newGuidelines.name;
+                foundGuidelines.description = newGuidelines.description;
+                foundGuidelines.link = newGuidelines.link;
+                foundGuidelines.save((err) => {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        Guidelines.find({}, (err,guidelines) =>{
+                            if(err){
+                                res.status(400).send();
+                            }else{
+                                res.status(200).json(guidelines);
+                            }  
+                        }); 
+                    }
+                });
             }
         })
     });

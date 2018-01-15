@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const guidelinesSchema = new mongoose.Schema({
         name: String,
         description: String,
-        url: String,
+        link: String,
         meta: {
             created_at: {type: Date, default: Date.now},
             updated_at: {type: Date, default: Date.now},
