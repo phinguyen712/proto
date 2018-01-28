@@ -1,12 +1,11 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React, {Component} from 'react'; 
 import './GuidelinesListItem.css';
 import { connect } from 'react-redux';
 import actions from '../../store/actions';
 import PrimaryButton from '../buttons/PrimaryButton';
 import SecondaryHollowButton from '../buttons/SecondaryHollowButton';
 import {RIEInput} from 'riek';
-import axios from 'axios'
+import axios from 'axios';
 
 class GuidelinesList extends Component {
     constructor(props) {
@@ -26,12 +25,13 @@ class GuidelinesList extends Component {
         this.toggleEditable = this.toggleEditable.bind(this);
         this.renderStartSaveButton = this.renderStartSaveButton.bind(this);
         this.updateGuidelinesItem = this.updateGuidelinesItem.bind(this);
+        this.renderSurvey = this.renderSurvey.bind(this);
     }
     updateListState(event) {
         if (event.name) {
             this.setState({name: event.name});
         } else if(event.description) {
-            this.setState({descritpion: event.description});
+            this.setState({description: event.description});
         } else if(event.link) {
             this.setState({link: event.link});
         }
@@ -66,19 +66,35 @@ class GuidelinesList extends Component {
                 startSaveButton: 'Save'
             })
         }
+
+        if (this.state.editButton === 'Cancel') {
+            this.setState({
+                name: this.props.name,
+                description: this.props.description,
+                link: this.props.link,
+            });
+        }
     }
     renderStartSaveButton() {
+        const self = this;
         if (this.state.startSaveButton === 'Save') {
             return (
-                < SecondaryHollowButton 
-                    buttonName={'Save'} 
+                <SecondaryHollowButton 
+                    buttonName='Save'
                     onClickHandler={() => this.updateGuidelinesItem()}/>
             )
         } else {
             return (
-               <PrimaryButton buttonName='Start'/>
+                <PrimaryButton 
+                    buttonName='Start'  
+                    onClickHandler={() => self.renderSurvey()}/>
             )
         }
+    }
+    renderSurvey() {
+        const {link, dispatch} = this.props;
+        dispatch(actions.renderSurvey(link))
+        dispatch(actions.updateCurrentView({homePage: 'showSurvey'}))
     }
     updateGuidelinesItem() {
         const {name, description, link} = this.state,
@@ -92,7 +108,7 @@ class GuidelinesList extends Component {
         this.props.submitPutRequest(updatedGuideline);
     }
     render() {
-        const {index, name, link, updatedAt, description, editButton} = this.state;
+        const {index, name, link, updatedDate, description, editButton} = this.state;
         return (
             <tr key={index}>
                 <td>
@@ -106,7 +122,7 @@ class GuidelinesList extends Component {
                 </td>
                 <td>
                     <div className='date-section'>
-                        {updatedAt}
+                        {updatedDate}
                     </div>
                     <div className='buttons-section'>
                        < SecondaryHollowButton 

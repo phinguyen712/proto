@@ -1,22 +1,41 @@
 import React, {Component} from 'react';
+import {Redirect} from 'react-router';
 import RefreshButton from '../../buttons/PrimaryButton.js';
-import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
 import './Survey.css';
 
 class Survey extends Component {
-  render() {
-    return (
-      <div className='survey-page'>
-        <div className='survey-container'>
-          <h2>Lorum Ipsum</h2>
-          <h3>In venenatis pellentesque felis vitae varius</h3>
-            <RefreshButton onClick={ () => this.refreshPage()}/>
-          <iframe className='survey' src='https://www.surveymonkey.com/r/YDM5DWK'/>
-        </div>
-      </div>
-    );
-  }
+	constructor() {
+		super();
+		this.state = {
+			fireRedirect: false
+		}
+		this.refreshPage = this.refreshPage.bind(this);
+	}
+	refreshPage(e) {
+		window.location.reload();
+	}
+	render() {
+		return (
+			<div className='survey-page'>
+				<div className='survey-container'>
+					<h2>Lorum Ipsum</h2>
+					<h3>In venenatis pellentesque felis vitae varius</h3>
+						<RefreshButton onClickHandler={() => this.refreshPage()}/>
+					<iframe title='survey' className='survey' src={this.props.url}/>
+					{this.state.fireRedirect && (<Redirect to='/'/>)}
+				</div>
+			</div>
+		);
+	}
 }
 
-export default Survey;
+export default connect(
+	(state) => {
+			return {
+				  url: state.currentView.surveyToRenderUrl
+			};
+	}
+)(Survey);
+
  

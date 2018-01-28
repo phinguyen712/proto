@@ -7,7 +7,7 @@ class RefreshButton extends Component {
     }
     render() {
         return (
-            <button className='refresh-button' type='button'  onClick={() => this.refreshPage()}>
+            <button className='refresh-button' type='button'  onClick={() => this.props.onClickHandler()}>
                 Start Over
             </button>
         );

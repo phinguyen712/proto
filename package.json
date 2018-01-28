@@ -9,8 +9,8 @@
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
     "body-parser": "^1.18.2",
-    "connect-flash": "^0.1.1",
     "bootstrap": "^3.3.7",
+    "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-beta.3",
     "express": "^4.16.2",
@@ -37,6 +37,7 @@
     "react-transition-group": "^2.2.1",
     "reactstrap": "^4.8.0",
     "redux": "^3.7.2",
+    "redux-persist": "^5.5.0",
     "start-server-webpack-plugin": "^2.2.0",
     "webpack": "^3.10.0",
     "webpack-node-externals": "^1.6.0"

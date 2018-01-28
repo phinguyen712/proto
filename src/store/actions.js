@@ -22,5 +22,11 @@ export default {
 			type: 'ADD_GUIDELINE',
 			guideline
 		}
+	},
+	renderSurvey(url) {
+		return {
+			type: 'RENDER_SURVEY',
+			url
+		}
   	}
 };

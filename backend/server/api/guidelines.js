@@ -7,6 +7,7 @@ module.exports = (app) => {
             if(err){
                 res.status(400).send();
             }else{
+                res.req.session.statusCheck = 'hello';
                 res.status(200).json(guidelines);
             }   
         });

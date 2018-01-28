@@ -42,6 +42,7 @@ class GuidelinesList extends Component {
         );
     }
     submitPutRequest(data) {
+        const self = this;
         axios.put('/guidelines/edit', {
             _id: data._id,
             name: data.name,
@@ -50,7 +51,8 @@ class GuidelinesList extends Component {
         })
         .then((response) => {
             if(response.status === 200) {
-                this.props.dispatch(actions.retrieveGuidelines(response.data));
+                self.props.dispatch(actions.retrieveGuidelines(response.data));
+                window.location.reload();
             } else {
                 throw(response)
             }
