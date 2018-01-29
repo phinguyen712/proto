@@ -4,29 +4,30 @@ import {
   guidelinesReducer
 } from './reducers';
 
-import * as redux from 'redux';
+import * as redux from 'redux'
+import { persistStore, persistCombineReducers } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 
 
-//configuration for our store object
-let store;
 
-export default {
-  configureStore (initialState = {}) {
-    const reducer = redux.combineReducers({
-        account: accountsReducer,
-        currentView: currentViewReducer,
-        guidelines: guidelinesReducer
-    });
+const persistConfig = {
+	key: 'root',
+	storage: storage,
+}
 
-    store = redux.createStore(reducer, initialState, redux.compose(
-    // for developer tools https://github.com/zalmoxisus/redux-devtools-extension
-      window.devToolsExtension ? window.devToolsExtension() : f => f
-    ));
+let persistedReducer = persistCombineReducers(persistConfig, 	
+	{
+		account: accountsReducer,
+		currentView: currentViewReducer,
+		guidelines: guidelinesReducer
+	}
+);
 
-    return store;
-  },
-
-  currentStore() {
-    return store;
-  }
-};
+export default () => {
+	let store = redux.createStore(persistedReducer, redux.compose(
+		// for developer tools https://github.com/zalmoxisus/redux-devtools-extension
+		window.devToolsExtension ? window.devToolsExtension() : f => f
+	));
+	let persistor = persistStore(store);
+	return { store, persistor};
+}
