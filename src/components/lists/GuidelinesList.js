@@ -1,18 +1,16 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
 import './GuidelinesList.css';
 import { connect } from 'react-redux';
 import actions from '../../store/actions';
-import PrimaryButton from '../buttons/PrimaryButton';
-import SecondaryHollowButton from '../buttons/SecondaryHollowButton';
-import {RIEInput} from 'riek';
 import axios from 'axios';
 import GuidelinesListItem from './GuidelinesListItem';
+import AddButton from '../buttons/AddButton'
 
 class GuidelinesList extends Component {
     constructor() {
         super();
         this.submitPutRequest = this.submitPutRequest.bind(this);
+        this.renderAddSurvey = this.renderAddSurvey.bind(this);
     }
     renderHeader() {
         return (
@@ -61,19 +59,24 @@ class GuidelinesList extends Component {
             console.log(err)
         });
     }
+    renderAddSurvey() {
+        console.log('hey')
+        this.props.dispatch(actions.updateCurrentView({'homePage': 'showGuideLineAddForm'}))
+    }
     render() {
         return(
-            <table className='guidelineListTable'>
-                <tbody>
-                    {this.renderHeader()}
-                    {this.renderItems()}
-                </tbody>
-            </table>
+            <div>
+                <table className='guidelineListTable'>
+                    <AddButton buttonName='Add Survey' onClickHandler={this.renderAddSurvey}/>
+                    <tbody>
+                        {this.renderHeader()}
+                        {this.renderItems()}
+                    </tbody>
+                </table>
+            </div>
         )
-
     }
 }
-
 export default connect(
     (state) => {
         return {

@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import Survey from './Survey.js'
 import GuidelinesList from '../../lists/GuidelinesList';
-import GuidelinesEditor from './GuidelinesEditor'
+import GuideLineAddForm from '../../forms/GuideLineAddForm';
 import './Home.css';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
-import { Button } from 'reactstrap';
-import actions from '../../../store/actions';
 
 class Home extends Component {
     renderView() {
@@ -23,10 +20,10 @@ class Home extends Component {
                     <Survey/>
                 </div>
             );
-        } else if (currentView === 'showEditor') {
+        } else if (currentView === 'showGuideLineAddForm') {
             return (
                 <div>
-                    <GuidelinesEditor/>
+                    <GuideLineAddForm/>
                 </div>
             )
         } else {

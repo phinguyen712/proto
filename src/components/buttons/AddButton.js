@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import './PrimaryButton.css'
+import './AddButton.css'
 
-class PrimaryButton extends Component {
+class AddButton extends Component {
     render() {
         return (
             <button className='action-button' type='button' onClick={() => this.props.onClickHandler()}>
@@ -11,4 +11,4 @@ class PrimaryButton extends Component {
     }
 }
 
-export default PrimaryButton;
+export default AddButton;

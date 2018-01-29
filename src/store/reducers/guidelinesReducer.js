@@ -3,7 +3,7 @@ export default (state = [], action) => {
 		case 'RETRIEVE_GUIDELINES':
 			return action.guidelines;
 		case 'ADD_GUIDELINE':
-			return [action.guideline,...action];
+			return [...state, action.guideline];
 		default:
 			return state;
     }

@@ -1,0 +1,12 @@
+@import 'styles/variables.scss';
+
+.add-button {
+    border-radius: $prim-btn-radius;
+    height: $prim-btn-height;
+    width: $prim-btn-width;
+    background-color: green;
+    border-style: none;
+    height: 40px;
+    color: white;
+    font-size: 1em;
+}
