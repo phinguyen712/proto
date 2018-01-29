@@ -60,7 +60,6 @@ class GuidelinesList extends Component {
         });
     }
     renderAddSurvey() {
-        console.log('hey')
         this.props.dispatch(actions.updateCurrentView({'homePage': 'showGuideLineAddForm'}))
     }
     render() {

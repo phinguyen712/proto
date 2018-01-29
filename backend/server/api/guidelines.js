@@ -26,6 +26,15 @@ module.exports = (app) => {
             }
         })
     });
+    app.delete('/guidelines/delete' , (req,res) => {
+        Guidelines.findByIdAndRemove(req.body._id, (err, deletedGuideline) => {
+            if (err) {
+                console.log(err);
+            } else {
+                res.status(200).send(deletedGuideline);
+            }
+        })
+    });
     app.put('/guidelines/edit' , (req,res) => {
         const newGuidelines = {
             _id: req.body._id,

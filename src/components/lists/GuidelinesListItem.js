@@ -5,6 +5,7 @@ import actions from '../../store/actions';
 import PrimaryButton from '../buttons/PrimaryButton';
 import SecondaryHollowButton from '../buttons/SecondaryHollowButton';
 import {RIEInput} from 'riek';
+import DeleteButton from '../buttons/DeleteButton';
 import axios from 'axios';
 
 class GuidelinesList extends Component {
@@ -26,6 +27,7 @@ class GuidelinesList extends Component {
         this.renderStartSaveButton = this.renderStartSaveButton.bind(this);
         this.updateGuidelinesItem = this.updateGuidelinesItem.bind(this);
         this.renderSurvey = this.renderSurvey.bind(this);
+        this.deleteGuideLines = this.deleteGuideLines.bind(this);
     }
     updateListState(event) {
         if (event.name) {
@@ -91,6 +93,24 @@ class GuidelinesList extends Component {
             )
         }
     }
+    renderDeleteButton() {
+        if (this.state.isEditable) {
+            return <DeleteButton onClickHandler={this.deleteGuideLines}/>
+        }
+    }
+    deleteGuideLines(){
+        axios.delete('guidelines/delete', {data: {_id: this.props._id}})
+		.then((response) => {
+			if(response.status === 200) {
+				window.parent.location = window.parent.location.href;
+			} else {
+				throw(response)
+			}
+		})
+		.catch((err) => {
+			console.log(err)
+		});
+    }
     renderSurvey() {
         const {link, dispatch} = this.props;
         dispatch(actions.renderSurvey(link))
@@ -128,7 +148,8 @@ class GuidelinesList extends Component {
                        < SecondaryHollowButton 
                             buttonName={editButton} 
                             onClickHandler={this.toggleEditable}/>
-                        {this.renderStartSaveButton()}   
+                        {this.renderStartSaveButton()}
+                        {this.renderDeleteButton()}   
                     </div>
                 </td>
             </tr>

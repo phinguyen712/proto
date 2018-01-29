@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Redirect} from 'react-router';
-import PrimaryhButton from '../../buttons/PrimaryButton.js';
+import RefreshButton from '../../buttons/RefreshButton.js';
 import SecondaryHollowButton from '../../buttons/SecondaryHollowButton.js';
 import actions from '../../../store/actions';
 import { connect } from 'react-redux';
@@ -12,11 +12,7 @@ class Survey extends Component {
 		this.state = {
 			fireRedirect: false
 		}
-		this.refreshPage = this.refreshPage.bind(this);
 		this.returnToGuidelines = this.returnToGuidelines.bind(this);
-	}
-	refreshPage(e) {
-		window.location.reload();
 	}
 	returnToGuidelines() {
 		this.props.dispatch(actions.updateCurrentView({homePage: 'showGuidelinesList'}));
@@ -27,7 +23,7 @@ class Survey extends Component {
 				<div className='survey-container'>
 					<h2>Lorum Ipsum</h2>
 					<h3>In venenatis pellentesque felis vitae varius</h3>
-					<PrimaryhButton buttonName ='Start Over' onClickHandler={() => this.refreshPage()}/>
+					<RefreshButton/>
 					<SecondaryHollowButton buttonName ='Back' onClickHandler={() => this.returnToGuidelines()}/>
 					<iframe title='survey' className='survey' src={this.props.url}/>
 					{this.state.fireRedirect && (<Redirect to='/'/>)}

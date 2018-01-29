@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './SecondaryHollowButton.css'
 
-class RefreshButton extends Component {
+class SecondaryHollowButton extends Component {
     render() {
         return (
             <button className='modify-button' type='button' onClick={() => this.props.onClickHandler()}>
@@ -11,4 +11,4 @@ class RefreshButton extends Component {
     }
 }
 
-export default RefreshButton;
+export default SecondaryHollowButton;

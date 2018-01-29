@@ -15,21 +15,23 @@ class GuideLinesEditor extends Component {
         super(props);
         this.state = {
           name:'',
-          url:''
+          link:'',
+          description:''
         }
         this.password = '';
-        this.handleNameChange= this.handleNameChange.bind(this);
+        this.handleNameChange = this.handleNameChange.bind(this);
         this.handleLinkChange = this.handleLinkChange.bind(this);
+        this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
       }
       handleNameChange(event) {
         this.setState({name: event.target.value});
       }
       handleDescriptionChange(event) {
-        this.setState({url: event.target.value});
+        this.setState({description: event.target.value});
       }
       handleLinkChange(event) {
-        this.setState({url: event.target.value});
+        this.setState({link: event.target.value});
       }
       handleSubmit() {
         axios.post('guidelines/create', {
@@ -61,12 +63,12 @@ class GuideLinesEditor extends Component {
                 <FormGroup>
                     <Label for="description" hidden>Password</Label>
                     <Input name="description"
-                        placeholder="description" value={this.state.description} onChange={this.handlehandleDescriptionChange} />
+                        placeholder="description" value={this.state.description} onChange={this.handleDescriptionChange} />
                 </FormGroup>
                 <FormGroup>
-                    <Label for="url" hidden>Password</Label>
-                    <Input name="description"
-                        placeholder="url" value={this.state.link} onChange={this.handleLinkChange} />
+                    <Label for="link" hidden>Password</Label>
+                    <Input name="link"
+                        placeholder="link" value={this.state.link} onChange={this.handleLinkChange} />
                 </FormGroup>
                 <PrimaryButton buttonName='ADD' onClickHandler={this.handleSubmit}/>
                 <RenderGuideLinesButton/>
