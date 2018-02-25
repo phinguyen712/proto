@@ -18,14 +18,15 @@ class Survey extends Component {
 		this.props.dispatch(actions.updateCurrentView({homePage: 'showGuidelinesList'}));
 	}
 	render() {
+		const { url, name, description} = this.props;
 		return (
 			<div className='survey-page'>
 				<div className='survey-container'>
-					<h2>Lorum Ipsum</h2>
-					<h3>In venenatis pellentesque felis vitae varius</h3>
+					<h3>{name}</h3>
+					<p>{description}</p>
 					<RefreshButton/>
 					<SecondaryHollowButton buttonName ='Back' onClickHandler={() => this.returnToGuidelines()}/>
-					<iframe title='survey' className='survey' src={this.props.url}/>
+					<iframe title='survey' className='survey' src={url}/>
 					{this.state.fireRedirect && (<Redirect to='/'/>)}
 				</div>
 			</div>
@@ -35,9 +36,11 @@ class Survey extends Component {
 
 export default connect(
 	(state) => {
-			return {
-				  url: state.currentView.surveyToRenderUrl
-			};
+		return {
+				url: state.currentView.surveyToRenderUrl,
+				name : state.currentView.surveyToRenderName,
+				description: state.currentView.surveyToRenderDescription
+		};
 	}
 )(Survey);
 

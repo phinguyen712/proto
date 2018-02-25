@@ -28,10 +28,12 @@ export default {
 			guideline
 		}
 	},
-	renderSurvey(url) {
+	renderSurvey(url, name, description) {
 		return {
 			type: 'RENDER_SURVEY',
-			url
+			url,
+			name,
+			description
 		}
   	}
 };

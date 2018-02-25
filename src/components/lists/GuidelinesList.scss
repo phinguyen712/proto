@@ -1,13 +1,44 @@
-
 @import 'styles/variables.scss';
 
 .guidelineListTable {
-    max-width: 1000px;
-    width: 100%;
     margin: auto;
 }
 
+.guidelineList-top {
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    span {
+        text-transform:capitalize;
+    }
+
+    .add-guideline-button:hover {
+        color:$link-blue;
+        cursor: pointer;
+    }
+
+    .add-guideline-button {
+        font-size: 12px;
+        margin-bottom: 10px;
+        font-weight: $font-weight-lighter;
+    }
+}
+
 .guidelines-header {
-    height: 40px;
-    background-color: $prim-gray;
+    th {
+        background-color: $prim-gray;
+        padding-left: 16px;
+        height: $cell-header-height;
+        border: $cell-dark-border;
+    }
+}
+
+table {
+    table-layout:fixed;
+    width:100%;
+
+    .right-column {
+        width: 400px;   
+    }
 }

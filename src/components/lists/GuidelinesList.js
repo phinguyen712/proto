@@ -13,7 +13,7 @@ class GuidelinesList extends Component {
         this.renderAddSurvey = this.renderAddSurvey.bind(this);
     }
     renderLink() {
-        if(this.props.accountType === 'admin') {
+        if(this.props.account.type === 'admin') {
             return <th>Link</th>
         }
     }
@@ -41,8 +41,8 @@ class GuidelinesList extends Component {
         this.props.dispatch(actions.updateCurrentView({'homePage': 'showGuideLineAddForm'}))
     }
     renderAddSurveyButton() {
-        if(this.props.accountType === 'admin') {
-            return <AddButton buttonName='Add Survey' onClickHandler={this.renderAddSurvey}/>
+        if(this.props.account.type === 'admin') {
+            return <div className='add-guideline-button' onClick={() => this.renderAddSurvey()}> +Create New</div>
         }
     }
     renderItems() {
@@ -58,6 +58,7 @@ class GuidelinesList extends Component {
                         description={item.description}
                         link={item.link}
                         updatedDate={item.meta.updated_at}
+                        submitPutRequest={this.submitPutRequest}
                     />
                 );
             }) 
@@ -66,12 +67,15 @@ class GuidelinesList extends Component {
     render() {
         return(
             <div>
-                {this.renderAddSurveyButton()}
+                <div className='guidelineList-top'>
+                    <h3>Welcome back <span>{this.props.account.username}</span></h3>
+                    {this.renderAddSurveyButton()}
+                </div>
                 <table className='guidelineListTable'>
                     <thead className='guidelines-header'>
                         <th>Diastology</th> 
                         {this.renderLink()}
-                        <th>Date Modified</th>
+                        <th className='right-column'>Date Modified</th>
                     </thead>
                     <tbody>
                         {this.renderItems()}
@@ -85,7 +89,7 @@ export default connect(
     (state) => {
         return {
             guidelines: state.guidelines,
-            accountType: state.account.type
+            account: state.account
         };
     }
 )(GuidelinesList);

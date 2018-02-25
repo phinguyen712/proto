@@ -76,7 +76,7 @@ class GuidelinesList extends Component {
             return (
                 <SecondaryHollowButton 
                     buttonName='Save'
-                    onClickHandler={() => this.updateGuidelinesItem()}/>
+                    onClickHandler={this.updateGuidelinesItem}/>
             )
         } else {
             return (
@@ -105,14 +105,14 @@ class GuidelinesList extends Component {
 		});
     }
     renderSurvey() {
-        const {link, dispatch} = this.props;
-        dispatch(actions.renderSurvey(link))
+        const {link, name, description, dispatch} = this.props;
+        dispatch(actions.renderSurvey(link, name, description))
         dispatch(actions.updateCurrentView({homePage: 'showSurvey'}))
     }
     renderLink() {
         const {link} = this.state;
         if (this.isAdmin) {
-            return  <td>{this.renderEditableOrNot(link,'link')}</td>
+            return this.renderEditableOrNot(link,'link');
         }
     }
     renderEditableOrNot(value, string) {
@@ -144,21 +144,25 @@ class GuidelinesList extends Component {
         const {index, name, updatedDate, description} = this.state;
         return (
             <tr key={index}>
-                <td>
+                <td className='name-description-section'>
                    {this.renderEditableOrNot(name,'name')}
                     <p>
                         {this.renderEditableOrNot(description,'description')}
                     </p>
                 </td>
-                {this.renderLink()}
-                <td>
-                    <div className='date-section'>
-                        {updatedDate}
-                    </div>
-                    <div className='buttons-section'>
-                        {this.renderEditButton()}
-                        {this.renderStartSaveButton()}
-                        {this.renderDeleteButton()}   
+                <td className='link-section'>
+                    {this.renderLink()}
+                </td>
+                <td className='date-buttons-section'>
+                    <div className='date-button-container'>
+                        <div className='date-section'>
+                            {updatedDate}
+                        </div>
+                        <div className='buttons-section'>
+                            {this.renderEditButton()}
+                            {this.renderStartSaveButton()}
+                            {this.renderDeleteButton()}   
+                        </div>
                     </div>
                 </td>
             </tr>
