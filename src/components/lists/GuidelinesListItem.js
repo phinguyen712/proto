@@ -21,6 +21,7 @@ class GuidelinesList extends Component {
             startSaveButton: 'Start'
         }
         // index pass from parent
+        this.isAdmin = (this.props.accountType === 'admin');
         this.index = this.props.index;
         this.updateListState = this.updateListState.bind(this);
         this.toggleEditable = this.toggleEditable.bind(this);
@@ -37,22 +38,6 @@ class GuidelinesList extends Component {
         } else if(event.link) {
             this.setState({link: event.link});
         }
-    }
-    renderEditableOrNot(value, string) {
-        if (this.state.isEditable) {
-            return (
-                <RIEInput
-                    classEditing='editing-text'
-                    value={value}
-                    change={this.updateListState}
-                    propName={string}/>
-            );
-        } else {
-            return (
-                value
-            ) 
-        }
-
     }
     toggleEditable() {
         if (this.state.isEditable) {
@@ -77,6 +62,14 @@ class GuidelinesList extends Component {
             });
         }
     }
+    renderEditButton() {
+        const {editButton} = this.state;
+        if (this.isAdmin) {
+            return  < SecondaryHollowButton 
+                        buttonName={editButton} 
+                        onClickHandler={this.toggleEditable}/>
+        }
+    }
     renderStartSaveButton() {
         const self = this;
         if (this.state.startSaveButton === 'Save') {
@@ -94,7 +87,7 @@ class GuidelinesList extends Component {
         }
     }
     renderDeleteButton() {
-        if (this.state.isEditable) {
+        if (this.state.isEditable && this.isAdmin) {
             return <DeleteButton onClickHandler={this.deleteGuideLines}/>
         }
     }
@@ -116,6 +109,26 @@ class GuidelinesList extends Component {
         dispatch(actions.renderSurvey(link))
         dispatch(actions.updateCurrentView({homePage: 'showSurvey'}))
     }
+    renderLink() {
+        const {link} = this.state;
+        if (this.isAdmin) {
+            return  <td>{this.renderEditableOrNot(link,'link')}</td>
+        }
+    }
+    renderEditableOrNot(value, string) {
+        if (this.state.isEditable) {
+            return (
+                <RIEInput
+                    classEditing='editing-text'
+                    value={value}
+                    change={this.updateListState}
+                    propName={string}/>
+            );
+        } else {
+            return value;
+        }
+
+    }
     updateGuidelinesItem() {
         const {name, description, link} = this.state,
             _id = this.props._id,
@@ -128,7 +141,7 @@ class GuidelinesList extends Component {
         this.props.submitPutRequest(updatedGuideline);
     }
     render() {
-        const {index, name, link, updatedDate, description, editButton} = this.state;
+        const {index, name, updatedDate, description} = this.state;
         return (
             <tr key={index}>
                 <td>
@@ -137,17 +150,13 @@ class GuidelinesList extends Component {
                         {this.renderEditableOrNot(description,'description')}
                     </p>
                 </td>
-                <td>
-                    {this.renderEditableOrNot(link,'link')}
-                </td>
+                {this.renderLink()}
                 <td>
                     <div className='date-section'>
                         {updatedDate}
                     </div>
                     <div className='buttons-section'>
-                       < SecondaryHollowButton 
-                            buttonName={editButton} 
-                            onClickHandler={this.toggleEditable}/>
+                        {this.renderEditButton()}
                         {this.renderStartSaveButton()}
                         {this.renderDeleteButton()}   
                     </div>
@@ -160,7 +169,8 @@ class GuidelinesList extends Component {
 export default connect(
     (state) => {
         return {
-            guidelines: state.guidelines
+            guidelines: state.guidelines,
+            accountType: state.account.type
         };
     }
 )(GuidelinesList);

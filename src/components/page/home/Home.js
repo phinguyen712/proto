@@ -10,8 +10,9 @@ class Home extends Component {
         const {currentView} = this.props;
         if (currentView === 'showGuidelinesList') {
             return (
+                // Render guidelinelist or empty home view
                 <div className="guidelinesList">
-                    <GuidelinesList/>
+                    {this.renderDefaultHomePage()}
                 </div>
             );
         } else if (currentView === 'showSurvey') {
@@ -28,6 +29,24 @@ class Home extends Component {
             )
         } else {
             return <div></div>
+        }
+    }
+    // Render default homepage guidelinelist based on login
+    renderDefaultHomePage() {
+        if(this.props.account.username) {
+            return (
+                <div>
+                     <GuidelinesList/>
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    <h1>
+                        Please Log in
+                    </h1>
+                </div>
+            )
         }
     }
     render() {

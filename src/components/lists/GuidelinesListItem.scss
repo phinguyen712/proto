@@ -7,15 +7,22 @@ tr {
     border-bottom-style: solid;
     border-bottom-width: 1px;
 }
+
+.guidelines-header {
+    height: 40px;
+}
+
 .date-section, .buttons-section {
     width: 50%;
     display: inline-block;
 }
+
 .buttons-section {
     text-align: right;
     padding-right: 20px;
     display: inline-block;
 }
+
 .editing-text {
     color: black;
 }

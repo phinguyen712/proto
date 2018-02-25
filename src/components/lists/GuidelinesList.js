@@ -12,32 +12,10 @@ class GuidelinesList extends Component {
         this.submitPutRequest = this.submitPutRequest.bind(this);
         this.renderAddSurvey = this.renderAddSurvey.bind(this);
     }
-    renderHeader() {
-        return (
-            <tr className='header'>
-                <th>Diastology</th> 
-                <th>Link</th>
-                <th>Date Modified</th>
-            </tr>
-        )
-    }
-    renderItems() {
-        return(
-            this.props.guidelines.map((item, i) => {
-                const guidelineName = (item.name) ? item.name : '';
-                return(
-                    <GuidelinesListItem
-                        key={i}
-                        _id={item._id}
-                        name={guidelineName}
-                        description={item.description}
-                        link={item.link}
-                        updatedDate={item.meta.updated_at}
-                        submitPutRequest={this.submitPutRequest}
-                    />
-                );
-            }) 
-        );
+    renderLink() {
+        if(this.props.accountType === 'admin') {
+            return <th>Link</th>
+        }
     }
     submitPutRequest(data) {
         const self = this;
@@ -62,13 +40,40 @@ class GuidelinesList extends Component {
     renderAddSurvey() {
         this.props.dispatch(actions.updateCurrentView({'homePage': 'showGuideLineAddForm'}))
     }
+    renderAddSurveyButton() {
+        if(this.props.accountType === 'admin') {
+            return <AddButton buttonName='Add Survey' onClickHandler={this.renderAddSurvey}/>
+        }
+    }
+    renderItems() {
+        let guidelineName;
+        return(
+            this.props.guidelines.map((item, i) => {
+                guidelineName = (item.name) ? item.name : '';
+                return(
+                    <GuidelinesListItem
+                        key={i}
+                        _id={item._id}
+                        name={guidelineName}
+                        description={item.description}
+                        link={item.link}
+                        updatedDate={item.meta.updated_at}
+                    />
+                );
+            }) 
+        );
+    }
     render() {
         return(
             <div>
+                {this.renderAddSurveyButton()}
                 <table className='guidelineListTable'>
-                    <AddButton buttonName='Add Survey' onClickHandler={this.renderAddSurvey}/>
+                    <thead className='guidelines-header'>
+                        <th>Diastology</th> 
+                        {this.renderLink()}
+                        <th>Date Modified</th>
+                    </thead>
                     <tbody>
-                        {this.renderHeader()}
                         {this.renderItems()}
                     </tbody>
                 </table>
@@ -79,7 +84,8 @@ class GuidelinesList extends Component {
 export default connect(
     (state) => {
         return {
-            guidelines: state.guidelines
+            guidelines: state.guidelines,
+            accountType: state.account.type
         };
     }
 )(GuidelinesList);

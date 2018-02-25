@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
-import RefreshButton from '../buttons/PrimaryButton.js';
-import {Link} from 'react-router-dom';
 import './GuideLineAddForm.css';
 import {connect} from 'react-redux';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import {Form, FormGroup, Label, Input } from 'reactstrap';
 import PrimaryButton from '../buttons/PrimaryButton';
 import RenderGuideLinesButton from '../buttons/RenderGuideLinesButton';
 import axios from 'axios';

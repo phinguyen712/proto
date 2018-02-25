@@ -5,6 +5,11 @@ export default {
 			userData
 		};
 	},
+	logOutUser() {
+		return {
+			type: 'LOGOUT_USER'
+		}
+  	},
 	updateCurrentView(updatedViewState) {
 		return {
 			type: 'UPDATE_CURRENT_VIEW',

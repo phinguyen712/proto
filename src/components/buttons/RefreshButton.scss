@@ -1,7 +1,9 @@
 @import 'styles/variables.scss';
 
-.action-button {
-    border-radius: 0px;
+.refresh-button {
+    border-radius: $prim-btn-radius;
+    height: 50px;
+    width: 80px;
     background-color: $light-blue;
     border-style: none;
     height: 40px;

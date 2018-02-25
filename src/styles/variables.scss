@@ -1,9 +1,13 @@
-$light-blue: rgb(18, 165, 223);
+$light-blue: #4D6D99;
 $background-gray: rgb(43, 42, 42);
-$prim-gray: gray;
+$prim-gray: #454545;
 
 //borders
 $prim-btn-radius: 5px;
 $prim-btn-padding: 5px;
 $prim-btn-width: 60px;
 $prim-btn-height: 30px;
+
+//dimensions
+$content-width: 960px;
+$nav-height: 48px;
