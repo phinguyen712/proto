@@ -1,45 +1,21 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
 import './GuidelinesList.css';
 import { connect } from 'react-redux';
 import actions from '../../store/actions';
-import PrimaryButton from '../buttons/PrimaryButton';
-import SecondaryHollowButton from '../buttons/SecondaryHollowButton';
-import {RIEInput} from 'riek';
 import axios from 'axios';
 import GuidelinesListItem from './GuidelinesListItem';
+import AddButton from '../buttons/AddButton'
 
 class GuidelinesList extends Component {
     constructor() {
         super();
         this.submitPutRequest = this.submitPutRequest.bind(this);
+        this.renderAddSurvey = this.renderAddSurvey.bind(this);
     }
-    renderHeader() {
-        return (
-            <tr className='header'>
-                <th>Diastology</th> 
-                <th>Link</th>
-                <th>Date Modified</th>
-            </tr>
-        )
-    }
-    renderItems() {
-        return(
-            this.props.guidelines.map((item, i) => {
-                const guidelineName = (item.name) ? item.name : '';
-                return(
-                    <GuidelinesListItem
-                        key={i}
-                        _id={item._id}
-                        name={guidelineName}
-                        description={item.description}
-                        link={item.link}
-                        updatedDate={item.meta.updated_at}
-                        submitPutRequest={this.submitPutRequest}
-                    />
-                );
-            }) 
-        );
+    renderLink() {
+        if(this.props.account.type === 'admin') {
+            return <th>Link</th>
+        }
     }
     submitPutRequest(data) {
         const self = this;
@@ -61,23 +37,59 @@ class GuidelinesList extends Component {
             console.log(err)
         });
     }
+    renderAddSurvey() {
+        this.props.dispatch(actions.updateCurrentView({'homePage': 'showGuideLineAddForm'}))
+    }
+    renderAddSurveyButton() {
+        if(this.props.account.type === 'admin') {
+            return <div className='add-guideline-button' onClick={() => this.renderAddSurvey()}> +Create New</div>
+        }
+    }
+    renderItems() {
+        let guidelineName;
+        return(
+            this.props.guidelines.map((item, i) => {
+                guidelineName = (item.name) ? item.name : '';
+                return(
+                    <GuidelinesListItem
+                        key={i}
+                        _id={item._id}
+                        name={guidelineName}
+                        description={item.description}
+                        link={item.link}
+                        updatedDate={item.meta.updated_at}
+                        submitPutRequest={this.submitPutRequest}
+                    />
+                );
+            }) 
+        );
+    }
     render() {
         return(
-            <table className='guidelineListTable'>
-                <tbody>
-                    {this.renderHeader()}
-                    {this.renderItems()}
-                </tbody>
-            </table>
+            <div>
+                <div className='guidelineList-top'>
+                    <h3>Welcome back <span>{this.props.account.username}</span></h3>
+                    {this.renderAddSurveyButton()}
+                </div>
+                <table className='guidelineListTable'>
+                    <thead className='guidelines-header'>
+                        <th>Diastology</th> 
+                        {this.renderLink()}
+                        <th className='right-column'>Date Modified</th>
+                    </thead>
+                    <tbody>
+                        {this.renderItems()}
+                    </tbody>
+                </table>
+            </div>
         )
-
     }
 }
-
 export default connect(
     (state) => {
         return {
-            guidelines: state.guidelines
+            guidelines: state.guidelines,
+            account: state.account
         };
     }
 )(GuidelinesList);

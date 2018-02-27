@@ -16,7 +16,7 @@ module.exports = (app) => {
         }
     });
     app.post('/account/signUp', function(req,res){
-       Account.register(new User({username: req.body.username}), req.body.password, (err,user) =>{
+       Account.register({username: req.body.username}, req.body.password, (err,user) =>{
             if(err){
                 res.json({err:err.message})
             }else{

@@ -14,6 +14,8 @@ export default (state = initialView, action) => {
             return newState;
         case 'RENDER_SURVEY':
             newState.surveyToRenderUrl = action.url;
+            newState.surveyToRenderName = action.name;
+            newState.surveyToRenderDescription = action.description;
             return newState
       default:
         return state;

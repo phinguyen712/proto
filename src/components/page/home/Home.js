@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
 import Survey from './Survey.js'
 import GuidelinesList from '../../lists/GuidelinesList';
-import GuidelinesEditor from './GuidelinesEditor'
+import GuideLineAddForm from '../../forms/GuideLineAddForm';
 import './Home.css';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
-import { Button } from 'reactstrap';
-import actions from '../../../store/actions';
 
 class Home extends Component {
     renderView() {
         const {currentView} = this.props;
         if (currentView === 'showGuidelinesList') {
             return (
+                // Render guidelinelist or empty home view
                 <div className="guidelinesList">
-                    <GuidelinesList/>
+                    {this.renderDefaultHomePage()}
                 </div>
             );
         } else if (currentView === 'showSurvey') {
@@ -23,14 +21,32 @@ class Home extends Component {
                     <Survey/>
                 </div>
             );
-        } else if (currentView === 'showEditor') {
+        } else if (currentView === 'showGuideLineAddForm') {
             return (
                 <div>
-                    <GuidelinesEditor/>
+                    <GuideLineAddForm/>
                 </div>
             )
         } else {
             return <div></div>
+        }
+    }
+    // Render default homepage guidelinelist based on login
+    renderDefaultHomePage() {
+        if(this.props.account.username) {
+            return (
+                <div>
+                     <GuidelinesList/>
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    <h1>
+                        Please Log in
+                    </h1>
+                </div>
+            )
         }
     }
     render() {

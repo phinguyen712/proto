@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Redirect} from 'react-router';
-import RefreshButton from '../../buttons/PrimaryButton.js';
+import RefreshButton from '../../buttons/RefreshButton.js';
+import SecondaryHollowButton from '../../buttons/SecondaryHollowButton.js';
+import actions from '../../../store/actions';
 import { connect } from 'react-redux';
 import './Survey.css';
 
@@ -10,19 +12,21 @@ class Survey extends Component {
 		this.state = {
 			fireRedirect: false
 		}
-		this.refreshPage = this.refreshPage.bind(this);
+		this.returnToGuidelines = this.returnToGuidelines.bind(this);
 	}
-	refreshPage(e) {
-		window.location.reload();
+	returnToGuidelines() {
+		this.props.dispatch(actions.updateCurrentView({homePage: 'showGuidelinesList'}));
 	}
 	render() {
+		const { url, name, description} = this.props;
 		return (
 			<div className='survey-page'>
 				<div className='survey-container'>
-					<h2>Lorum Ipsum</h2>
-					<h3>In venenatis pellentesque felis vitae varius</h3>
-						<RefreshButton onClickHandler={() => this.refreshPage()}/>
-					<iframe title='survey' className='survey' src={this.props.url}/>
+					<h3>{name}</h3>
+					<p>{description}</p>
+					<RefreshButton/>
+					<SecondaryHollowButton buttonName ='Back' onClickHandler={() => this.returnToGuidelines()}/>
+					<iframe title='survey' className='survey' src={url}/>
 					{this.state.fireRedirect && (<Redirect to='/'/>)}
 				</div>
 			</div>
@@ -32,9 +36,11 @@ class Survey extends Component {
 
 export default connect(
 	(state) => {
-			return {
-				  url: state.currentView.surveyToRenderUrl
-			};
+		return {
+				url: state.currentView.surveyToRenderUrl,
+				name : state.currentView.surveyToRenderName,
+				description: state.currentView.surveyToRenderDescription
+		};
 	}
 )(Survey);
 

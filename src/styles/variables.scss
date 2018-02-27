@@ -1,9 +1,24 @@
-$light-blue: rgb(18, 165, 223);
+$light-blue: #4D6D99;
+$med-blue: #2F7CE8;
 $background-gray: rgb(43, 42, 42);
-$prim-gray: gray;
+$prim-gray: #454545;
+$link-blue: #6F99D5;
 
 //borders
-$prim-btn-radius: 5px;
+$cell-dark-border: 1px solid $background-gray;
+
+//dimensions
+$prim-btn-radius: 4px;
 $prim-btn-padding: 5px;
-$prim-btn-width: 80px;
-$prim-btn-height: 50px;
+$prim-btn-width: 70px;
+$prim-btn-height: 40px;
+$cell-header-height: 40px;
+$content-width: 960px;
+$nav-height: 48px;
+
+//fonts
+$font-size-med: 14px;
+$font-size-small: 12px;
+$font-weight-lighter: lighter;
+$font-weight-normal: normal;
+

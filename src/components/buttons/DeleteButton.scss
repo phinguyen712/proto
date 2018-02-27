@@ -1,10 +1,10 @@
 @import 'styles/variables.scss';
 
-.primary-button {
+.delete-button {
     border-radius: $prim-btn-radius;
     height: $prim-btn-height;
     width: $prim-btn-width;
-    background-color: $med-blue;
+    background-color: red;
     border-style: none;
     color: white;
     font-size: 1em;
