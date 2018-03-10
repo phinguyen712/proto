@@ -51,14 +51,14 @@ if (cluster.isMaster) {
     mongoose.connect('mongodb://adminaccount:survey123@ds161016.mlab.com:61016/survey');
 
     // Priority serve any static files.
-    app.use(express.static(path.resolve(__dirname, '../build')));
+    app.use(express.static(path.resolve(__dirname, './build')));
 
     //all of the routes aka API
     api(app);
 
     // All remaining requests return the React app, so it can handle routing.
     app.get('*', function(request, response) {
-        response.sendFile(path.resolve(__dirname, '../build', 'index.html'));
+        response.sendFile(path.resolve(__dirname, './build', 'index.html'));
     });
 
     //runs server
