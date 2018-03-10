@@ -42,9 +42,9 @@
     "webpack-node-externals": "^1.6.0"
   },
   "scripts": {
+    "dev": "concurrently \"npm run server-dev\" \"npm-run-all -p watch-css start-js\"",
+    "start": "node server.js",
     "start-js": "react-scripts start",
-    "start": "concurrently \"npm run server-dev\" \"npm-run-all -p watch-css start-js\"",
-    "server": "node server.js",
     "server-dev": "concurrently \"nodemon --inspect ./backend/server.js\"",
     "build-js": "react-scripts build",
     "build": "npm-run-all build-css build-js",
