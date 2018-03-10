@@ -43,8 +43,9 @@
   },
   "scripts": {
     "dev": "concurrently \"npm run server-dev\" \"npm-run-all -p watch-css start-js\"",
-    "start": "node backend/server.js",
+    "start": "node ./backend/server.js",
     "start-js": "react-scripts start",
+    "server-prod": "node ./backend/server.js",
     "server-dev": "concurrently \"nodemon --inspect ./backend/server.js\"",
     "build-js": "react-scripts build",
     "build": "npm-run-all build-css build-js",
